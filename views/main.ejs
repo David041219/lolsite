@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title><%= title %></title>
+  <script src='/javascripts/jquery3.1.1.js'></script>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+
+<body>
+  <h1><%= title %></h1>
+  <p>Welcome to <%= title %></p>
+
+  <div style="text-align: center">
+    <input id="lolid_name" type="text" placeholder="아이디를 입력" />
+    <input id="bringdata_button" type="button" value=" 검색 " />
+  </div>
+</body>
+
+<script>
+  $(document).on('click', '#bringdata_button', function () {
+    fetch('/getdata', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Content-type': 'application/json'
+      },
+      body: JSON.stringify(
+        {
+          searchid: $('#lolid_name').val(),
+        }
+      )
+    }).then((res) => res.json()
+    ).then((data) => {
+      console.log(data.searchid);
+      console.log(data.data);
+    });
+  });
+
+</script>
+
+</html>
